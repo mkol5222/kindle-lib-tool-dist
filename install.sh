@@ -12,7 +12,9 @@ esac
 NAME="kindle-library-mac-$ARCH.zip"
 
 # Upgrade in place; new installs go to /Applications when writable, otherwise ~/Applications.
-if [ -d "/Applications/Kindle Library.app" ] || { [ ! -d "$HOME/Applications/Kindle Library.app" ] && [ -w /Applications ]; }; then
+if [ -n "${KINDLE_LIBRARY_DIR:-}" ]; then
+  DEST=$KINDLE_LIBRARY_DIR
+elif [ -d "/Applications/Kindle Library.app" ] || { [ ! -d "$HOME/Applications/Kindle Library.app" ] && [ -w /Applications ]; }; then
   DEST=/Applications
 else
   DEST="$HOME/Applications"
